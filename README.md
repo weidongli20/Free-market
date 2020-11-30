@@ -123,30 +123,30 @@ You will need to complete the functions provided in the starter code. Here are s
 
 * After launching with the above steps, you should see something like this:
 
-![market](Images/market.png)
+![market](Images/market_1.png)
 
 * You should be able to bid on a token:
 
-![bid](Images/bid.png)
+![bid](Images/bid_1.png)
 
 * When you are out-bid, you should be able to withdraw your pending balance in escrow:
 
-![withdraw](Images/withdraw.png)
+![withdraw](Images/withdraw_2.png)
 
 * When you are using the foundation account in MetaMask, you should be able to end auctions as well. This will then transfer the token to the highest bidder of the auction. You will see this as such:
 
-![ended](Images/ended.png)
+![ended](Images/ended_3.png)
 
 * You can also register new land using the foundation address:
 
-![register](Images/register.png)
+![register](Images/register_1.png)
 
 
 ## Github Deployment
 
 With the contracts and front end fully functioning, you can now deploy to github pages for a live, interactive dApp experience to add to your portfolio!
 
-1. Deploy to Github Pages by running the command `npm run deploy` in your terminal. This will run the provided convenience package `gh-pages` will automatically publish the bundle to the `martian_market` repo you initialized in the beginning of the homework. 
+1. Deploy to Github Pages by running the command `npm run deploy` in your terminal. This will run the provided convenience package `gh-pages` will automatically publish the bundle to the `Free_market` repo you initialized in the beginning of the homework. 
 
 2.  After running `npm run deploy` continue the normal process of pushing to your remote repository.
 
