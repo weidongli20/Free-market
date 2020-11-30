@@ -1,5 +1,15 @@
 # Free Market on Ethereum Block Chain!
 
+## Contributors
+
+@weidongli20
+
+## Technology Stack
+
+- Solidity, JavaScript, HTML
+
+## About
+
 ![market](Images/timg.png)
 
 The system will be a combination of an ERC721 contract and an auction contract combined to form the FreeMarket contract.
@@ -12,6 +22,10 @@ The functions of the contract can be designed to have the buyer pay for the most
 This can be done by putting the token transfer in the `endAuction` function that only the vendor can call.
 
 Each product sold will be a unique ERC721 token, with its own metadata including the product `name` and `image` URL.
+
+## Demo App
+
+Please use Google Chrome to open this page and Click [here](https://weidongli20.github.io/Free-market/) to launch the Free Market application
 
 # Instructions
 
@@ -159,3 +173,12 @@ Ensure that you have changed the `contractAddress` in the frontend code to be th
 You have just created a system that few people in the world have ever even imagined! Just imagine all of the things you
 can build now. By building this, you have flexed every Solidity muscle you can. You have proved to the world and to yourself
 that you can build next generation financial technology!
+
+## Contact
+
+#### Developer/FinTech Developer
+
+- Name: wei (@weidongli20)
+- e-mail: 4531holly@gmail.com
+- Github: [https://github.com/weidongli20](https://github.com/weidongli20)
+- LinkedIn: [https://www.linkedin.com/in/weidongli20/](http://www.linkedin.com/in/weidongli20)
