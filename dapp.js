@@ -64,7 +64,7 @@ const dApp = {
     //
     const renderItem1 = (id, icon_class) => `
       <li>
-        <div class="collapsible-header"><i class="${icon_class}"></i>History Report</div>
+        <div class="collapsible-header dapp-admin"><i class="${icon_class}"></i>History Report</div>
         <div class="collapsible-body" id="log">
         </div>
       </li>
@@ -153,7 +153,7 @@ const dApp = {
           `<div class="col m6">
             <div class="card">
               <div class="card-image">
-                <img id="dapp-image" src="${token.image}">
+                <img style="height:400px; width:100%" id="dapp-image" src="${token.image}">
                 <span id="dapp-name" class="card-title">${token.name}</span>
               </div>
               <div class="card-action">
