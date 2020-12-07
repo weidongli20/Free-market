@@ -100240,8 +100240,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var Web3 = require("web3");
 
-var contractAddress = "0x9b91Dd4F2B413709eaD9E6F9e396cf321d4DDB6d"; // insert Freearket contract address here
-//const contractAddress = "0x5fAc2df30a6C3350c7c79E8522A2324460d4C545"; // 
+var contractAddress = "0x9b91Dd4F2B413709eaD9E6F9e396cf321d4DDB6d"; // kovan
+//const contractAddress = "0x5fAc2df30a6C3350c7c79E8522A2324460d4C545"; // local
 
 var dApp = {
   ethEnabled: function ethEnabled() {
@@ -100428,30 +100428,98 @@ var dApp = {
     var _updateUI = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
       var _this = this;
 
+      var renderItem1, renderItemHead, renderItem, renderItemTail, str3, str, str2;
       return regeneratorRuntime.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              console.log("updating UI"); // refresh variables
+              console.log("updating UI"); //
 
-              _context4.next = 3;
+              renderItem1 = function renderItem1(id, icon_class) {
+                return "\n      <li>\n        <div class=\"collapsible-header dapp-admin\"><i class=\"".concat(icon_class, "\"></i>History Report</div>\n        <div class=\"collapsible-body\" id=\"log\">\n        </div>\n      </li>\n    ");
+              };
+
+              renderItemHead = function renderItemHead(id, icon_class) {
+                return "\n      <li>\n        <div class=\"collapsible-header\"><i class=\"".concat(icon_class, "\"></i>Bidding Report ").concat(id, "</div>\n        <div class=\"collapsible-body\">\n    ");
+              };
+
+              renderItem = function renderItem(uri) {
+                return "\n            <h6>Description</h6>\n            <p>".concat(uri, "</p>\n            <p><a href=\"uri\">Reference URI</a></p>\n    ");
+              };
+
+              renderItemTail = function renderItemTail() {
+                return "\n        </div>    \n      </li>\n    ";
+              };
+
+              str3 = ""; // fetch json metadata from IPFS (name, description, image, etc)
+              //const fetchMetadata = (reference_uri) => fetch(`https://gateway.pinata.cloud/ipfs/${reference_uri.replace("ipfs://", "")}`, { mode: "cors" }).then((resp) => resp.json());
+              //$("#dapp-history").append(renderItem1("","fab fa-osi"));
+              //fetchMetadata(reference_uri)
+              //.then((json) => {
+              //$("#dapp-hist").append(renderItem("fab fa-osi"));
+              //});
+              //});
+              // refresh variables
+
+              _context4.next = 8;
               return this.collectVars();
 
-            case 3:
-              $("#dapp-tokens").html("");
+            case 8:
+              //
+              $("#dapp-history").html("");
+              $("#dapp-history").append(renderItem1("", "fab fa-osi"));
+              str = "\n    <li>\n      <div class=\"collapsible-header\"><i class=\"fab fa-osi\"></i>Bid Report</div>\n      <div class=\"collapsible-body\" >";
+              str2 = "";
               this.tokens.forEach(function (token) {
-                var endAuction = "<a id=\"".concat(token.tokenId, "\" class=\"dapp-admin\" style=\"display:none;\" href=\"#\" onclick=\"window.dApp.endAuction(event)\">End Auction</a>");
+                //global.globalString = "test";
+                token.auction.events.HighestBidIncreased({
+                  fromBlock: 0
+                }, function (err, event) {
+                  //const {id, uri} = event.returnValues;
+                  //console.log(event.returnValues);
+                  M.toast({
+                    html: event.returnValues[0]
+                  });
+                  var str = "\n        <li> Bidder: ".concat(event.returnValues[0], "; Amount: ").concat(event.returnValues[1], " </li>\n        ");
+                  $("#log").append(str); //$("#dapp-history").innerHTML=renderItem1(event.returnValues[0],"fab fa-osi");
+                  //global.globalString = "t";
+                  //str2 += renderItem("");
+                  //str2 += `<p>${event.returnValues[1]}</p>`;
+                  //str3 = renderItem1(event.returnValues[0],"fab fa-osi");
+                  //return event;
+                }); //str3 += renderItem1(this.totalSupply,"fab fa-osi");
+                //var uri ="";
+                //var uri = evt;
+                //var uri ="";
+                //var uri = evt.raw.data;
+                //var evts = await token.auction.getPastEvents();
+
+                str2 += "<p>Product:".concat(token.name, ", Highest bid: ").concat(token.highestBid, "</p>"); //str2 += `<p>${id}</p>`;
+              }); //$("#dapp-history").append(str3);
+
+              str += str2;
+              str += renderItemTail();
+              $("#dapp-hist").html("");
+              $("#dapp-hist").append(str); //
+
+              $("#dapp-tokens").html(""); //$("#dapp-hist").html("");
+
+              this.tokens.forEach(function (token) {
+                var endAuction = "<a id=\"".concat(token.tokenId, "\" class=\"dapp-admin\" style=\"display:none;\" href=\"#\" onclick=\"window.dApp.endAuction(event)\">End Sale</a>");
                 var bid = "<a id=\"".concat(token.tokenId, "\" href=\"#\" onclick=\"window.dApp.bid(event);\">Bid</a>");
                 var owner = "Owner: ".concat(token.owner);
                 var withdraw = "<a id=\"".concat(token.tokenId, "\" href=\"#\" onclick=\"window.dApp.withdraw(event)\">Withdraw</a>");
-                var pendingWithdraw = "Balance: ".concat(token.pendingReturn, " wei");
-                $("#dapp-tokens").append("<div class=\"col m6\">\n            <div class=\"card\">\n              <div class=\"card-image\">\n                <img id=\"dapp-image\" src=\"".concat(token.image, "\">\n                <span id=\"dapp-name\" class=\"card-title\">").concat(token.name, "</span>\n              </div>\n              <div class=\"card-action\">\n                <input type=\"number\" min=\"").concat(token.highestBid + 1, "\" name=\"dapp-wei\" value=\"").concat(token.highestBid + 1, "\" ").concat(token.auctionEnded ? 'disabled' : '', ">\n                ").concat(token.auctionEnded ? owner : bid, "\n                ").concat(token.pendingReturn > 0 ? withdraw : '', "\n                ").concat(token.pendingReturn > 0 ? pendingWithdraw : '', "\n                ").concat(_this.isAdmin && !token.auctionEnded ? endAuction : '', "\n              </div>\n            </div>\n          </div>"));
+                var pendingWithdraw = "Balance: ".concat(token.pendingReturn, " wei"); //let bidhist = renderItem("fab fa-osi");
+                // fetch the OpenSource Events from the contract and append them to the UI list
+                //
+
+                $("#dapp-tokens").append("<div class=\"col m6\">\n            <div class=\"card\">\n              <div class=\"card-image\">\n                <img style=\"height:400px; width:100%\" id=\"dapp-image\" src=\"".concat(token.image, "\">\n                <span id=\"dapp-name\" class=\"card-title\">").concat(token.name, "</span>\n              </div>\n              <div class=\"card-action\">\n                <input type=\"number\" min=\"").concat(token.highestBid + 1, "\" name=\"dapp-wei\" value=\"").concat(token.highestBid + 1, "\" ").concat(token.auctionEnded ? 'disabled' : '', ">\n                ").concat(token.auctionEnded ? owner : bid, "\n                ").concat(token.pendingReturn > 0 ? withdraw : '', "\n                ").concat(token.pendingReturn > 0 ? pendingWithdraw : '', "\n                ").concat(_this.isAdmin && !token.auctionEnded ? endAuction : '', "\n              </div>\n            </div>\n          </div>")); //$("#dapp-hist").append(renderItem("fab fa-osi")); 
               }); // hide or show admin functions based on contract ownership
 
-              _context4.next = 7;
+              _context4.next = 21;
               return this.setAdmin();
 
-            case 7:
+            case 21:
             case "end":
               return _context4.stop();
           }
@@ -100702,7 +100770,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56346" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52014" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
